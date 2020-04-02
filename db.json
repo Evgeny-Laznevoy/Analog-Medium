@@ -1,0 +1,63 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "writer@mail.com",
+      "password": 123456,
+      "role": "writer"
+    },
+    {
+      "id": 2,
+      "login": "reader@mail.com",
+      "password": 123456,
+      "role": "reader"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Название поста",
+      "description": "Text ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.",
+      "claps": 0,
+      "createdAt": "2019-09-29T00:00:00.000Z",
+      "updateAt": "2019-09-29T00:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "yjdsq",
+      "description": "sdfsfsafsafafafsa",
+      "claps": 0,
+      "createdAt": "2020-04-01T19:00:00.000Z",
+      "updateAt": "2019-09-29T00:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "title": "ererewrewrewrew",
+      "description": "rewrewrewrewrewrewrw",
+      "claps": 0,
+      "createdAt": "2020-04-01T19:00:00.000Z",
+      "updateAt": "2019-09-29T00:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "title": "wfwfwfwfwfwfwfwfwfw",
+      "description": "wfwfwfwfwfwfwfwfwfwf",
+      "claps": 0,
+      "createdAt": "2020-04-01T19:00:00.000Z",
+      "updateAt": "2019-09-29T00:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 5,
+      "title": "2222222222222222",
+      "description": "22222222222222222222",
+      "claps": 0,
+      "createdAt": "2020-04-01T19:00:00.000Z",
+      "updateAt": "2019-09-29T00:00:00.000Z",
+      "userId": 1
+    }
+  ]
+}
