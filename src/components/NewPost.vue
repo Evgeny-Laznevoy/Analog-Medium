@@ -46,7 +46,7 @@ import { mapActions, mapGetters } from 'vuex';
         props:{},
         methods:{
             addPost(){
-             let post = this.$store.getters.lastPostId; //POSTS();  
+             let post = this.$store.getters.lastPostId;  
              const lastId = ++post;
             
             // let localTime = new Date() .format('YYYY-MM-DD'); // store localTime 
