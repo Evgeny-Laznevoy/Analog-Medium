@@ -7,10 +7,15 @@
 
 <script>
 import Header from '@/components/Header'
+import { mapActions } from 'vuex';
 
 export default {
   components:{
     Header
+  },
+  created(){
+      this.GET_POSTS_FROM_API();
+      console.log('взяли данные из API');
   },
   props: {
       post_data:{
@@ -21,7 +26,9 @@ export default {
     }
   },
   methods:{
-
+    ...mapActions([
+          'GET_POSTS_FROM_API'
+        ]),
   },
   computed:{
 

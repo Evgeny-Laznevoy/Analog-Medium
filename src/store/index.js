@@ -34,6 +34,9 @@ const store = new Vuex.Store({
       state.user.isAuthenticated = false;
       state.user.role = "";
       state.user.id = "";
+    },
+    REMOVE_POST(state, index){
+      state.posts.splice(index,1);
     }
   },
   actions: {
@@ -52,17 +55,22 @@ const store = new Vuex.Store({
         return error;
       })
     },
-    // ADD_TO_POST({commit}, post){
-    //   let {data}
-    //   commit('SET_POST', post)
-    ADD_TO_POST({commit}, post){
-      return axios.post('http://localhost:3000/posts', post)
-      .then((res) =>{
-          if (res.status == 200){
-            commit('SET_POST', post)
-          }
-        })
+    // GET_POSTS_FROM_STATE
+
+    DELETE_POST({commit}, index){
+      commit('REMOVE_POST', index)
     },
+    ADD_TO_POST({commit}, post){
+      commit('SET_POST', post)
+    }, 
+    // ADD_TO_POST({commit}, post){
+    //   return axios.post('http://localhost:3000/posts', post)
+    //   .then((res) =>{
+    //       if (res.status == 200){
+    //         commit('SET_POST', post)
+    //       }
+    //     })
+    // },
     SIGNIN({commit}, payload){
       commit('SET_PROCESSING', true)
       return axios.get('http://localhost:3000/users', {

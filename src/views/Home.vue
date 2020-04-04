@@ -8,8 +8,8 @@
                 {{page}}
             </div>
         </div>
-        <div class="card" v-for="post in paginatedPages" 
-                          :key="post.id" 
+        <div class="card" v-for="(post,i) in paginatedPages" 
+                          :key="i" 
                           v-bind:post_data="post">
           <div class="card-content">
             <div class="content">
@@ -19,8 +19,8 @@
             </div>
             <time datetime="2016-1-1">{{myDate(Math.ceil(Math.abs((new Date(post.createdAt)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)))}}</time>
             <div class="buttons is-right" v-if="isUserAuthenticated">
-                <b-button tag="router-link" :to="{ path: '/editPost' }" @click="editPost">Изменить</b-button>
-                <b-button>Удалить</b-button> 
+                <b-button @click="editPost(i)">Изменить</b-button>
+                <b-button @click="deleteFromPost(i)">Удалить</b-button> 
                 <b-button><i class="material-icons">thumb_up</i></b-button>
             </div>
           </div>
@@ -35,8 +35,8 @@ import {mapActions, mapGetters} from 'vuex';
     components: {
 
     },
-    props: {
-        
+    props:{
+        // post: post,
     },
     computed:{
       ...mapGetters([
@@ -49,12 +49,17 @@ import {mapActions, mapGetters} from 'vuex';
       paginatedPages(){
           let from = (this.pageNamber - 1) * this.perPage;
           let to = from + this.perPage;
+          // console.log(this.POSTS.slice(from, to)); 
           return this.POSTS.slice(from, to)
       }
     },
     methods:{
-      editPost(){
-          // console.log(post);   
+      editPost(index){
+          console.log(index);   
+          this.$router.push("/editPost");
+      },
+      deleteFromPost(index){
+          this.DELETE_POST(index);
       },
       myDate(newDate){
           let number = newDate;
@@ -82,7 +87,8 @@ import {mapActions, mapGetters} from 'vuex';
         this.pageNamber = page;
     }, 
     ...mapActions([
-          'GET_POSTS_FROM_API'
+          // 'GET_POSTS_FROM_API',
+          'DELETE_POST'
         ]),
     },
     data(){
@@ -92,9 +98,9 @@ import {mapActions, mapGetters} from 'vuex';
                isElVisible: false
             }
     },
-    mounted() {
-        this.GET_POSTS_FROM_API();
-    }
+    // mounted() {
+    //     this.GET_POSTS_FROM_API();
+    // }
   }
 </script>
 

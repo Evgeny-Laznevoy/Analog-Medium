@@ -64,7 +64,7 @@ import { mapActions, mapGetters } from 'vuex';
                 }
                 // let user = this.$store.getters.getUserRole;  
                     this.ADD_TO_POST(newPost)
-                    this.GET_POSTS_FROM_API();
+                    // this.GET_POSTS_FROM_API();
                     this.$router.push("/")       
             },
             ...mapActions([
