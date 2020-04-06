@@ -10,7 +10,7 @@
                 <textarea v-model="textPost" class="textarea" required></textarea>
             </div>
             <div class="buttons is-right">
-                <button class="button is-link" @click="addPost" :disabled="getProcessing">Добавить</button>
+                <button class="button is-link" @click.prevent="addPost" :disabled="getProcessing">Добавить</button>
                 <router-link to="/" class="button">Отмена</router-link>
             </div> 
         </div>   

@@ -10,7 +10,10 @@
         </div>
         <div class="card" v-for="(post,i) in paginatedPages" 
                           :key="i" 
-                          v-bind:post_data="post">
+                          :post_data="post"
+                          :post="post" :index="i+1"
+                          >
+         <div class="post">                
           <div class="card-content">
             <div class="content">
               <p class="title is-5">{{post.title}}</p>
@@ -24,20 +27,22 @@
                 <b-button><i class="material-icons">thumb_up</i></b-button>
             </div>
           </div>
+          </div> 
         </div>
     </section>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
+// import EditPostForm from '../components/EditPost';
+import {bus} from '../bus'
+
   export default {
     name: 'Home',
     components: {
-
+        
     },
-    props:{
-        // post: post,
-    },
+    props:{},
     computed:{
       ...mapGetters([
         'POSTS',
@@ -54,8 +59,10 @@ import {mapActions, mapGetters} from 'vuex';
       }
     },
     methods:{
-      editPost(index){
-          console.log(index);   
+      editPost(index){ 
+        this.id = index;
+        console.log(this.id);    
+          bus.$emit('editPost', this.id);
           this.$router.push("/editPost");
       },
       deleteFromPost(index){
@@ -87,7 +94,6 @@ import {mapActions, mapGetters} from 'vuex';
         this.pageNamber = page;
     }, 
     ...mapActions([
-          // 'GET_POSTS_FROM_API',
           'DELETE_POST'
         ]),
     },
@@ -95,7 +101,8 @@ import {mapActions, mapGetters} from 'vuex';
       return {
                perPage: 10,
                pageNamber: 1,
-               isElVisible: false
+               isElVisible: false,
+               id: 0
             }
     },
     // mounted() {

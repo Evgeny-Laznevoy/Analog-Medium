@@ -37,6 +37,12 @@ const store = new Vuex.Store({
     },
     REMOVE_POST(state, index){
       state.posts.splice(index,1);
+    },
+    CHANGE_POST(state, payload){
+      console.log(payload);
+      state.posts[payload.index].title = payload.title;
+      state.posts[payload.index].description = payload.description;
+      state.posts[payload.index].createdAt = payload.createdAt;
     }
   },
   actions: {
@@ -63,6 +69,10 @@ const store = new Vuex.Store({
     ADD_TO_POST({commit}, post){
       commit('SET_POST', post)
     }, 
+    EDIT_POST({commit}, post){
+      console.log(post);  
+      commit('CHANGE_POST',post)
+    },
     // ADD_TO_POST({commit}, post){
     //   return axios.post('http://localhost:3000/posts', post)
     //   .then((res) =>{
