@@ -1,7 +1,7 @@
 <template>
-    <b-navbar type="is-info"> 
+    <b-navbar type="is-info" v-show="unElVisible()"> 
         <template slot="start">
-             <b-navbar-item tag="router-link" :to="{ path: '/' }" v-show="unElVisible()">
+             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 Medium
              </b-navbar-item>
         </template>     
@@ -62,7 +62,7 @@ export default {
         watch:{
             isUserAuthenticated(val){
                 if (val === false) {  
-                    this.$router.push("/")
+                    this.$router.push("/signin")
                 }
             }
         },

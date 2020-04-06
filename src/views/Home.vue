@@ -13,7 +13,7 @@
                           :post_data="post"
                           :post="post" :index="i+1"
                           >
-         <div class="post">                
+         <div class="post" v-show="unElVisible()">                
           <div class="card-content">
             <div class="content">
               <p class="title is-5">{{post.title}}</p>
@@ -22,9 +22,9 @@
             </div>
             <time datetime="2016-1-1">{{myDate(Math.ceil(Math.abs((new Date(post.createdAt)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)))}}</time>
             <div class="buttons is-right" v-if="isUserAuthenticated">
-                <b-button @click="editPost(i)">Изменить</b-button>
-                <b-button @click="deleteFromPost(i)">Удалить</b-button> 
-                <b-button><i class="material-icons">thumb_up</i></b-button>
+                <b-button @click="editPost(i)" v-show="elVisEditPost">Изменить</b-button>
+                <b-button @click="deleteFromPost(i)" v-show="elVisDelPost">Удалить</b-button> 
+                <b-button v-show="elVisLike"><i class="material-icons">thumb_up</i></b-button>
             </div>
           </div>
           </div> 
@@ -46,7 +46,8 @@ import {bus} from '../bus'
     computed:{
       ...mapGetters([
         'POSTS',
-        'isUserAuthenticated'
+        'isUserAuthenticated',
+        'getUserRole'
       ]),
       pages(){
           return Math.ceil(this.$store.getters.lastPostId / 10);
@@ -64,6 +65,24 @@ import {bus} from '../bus'
         console.log(this.id);    
           bus.$emit('editPost', this.id);
           this.$router.push("/editPost");
+      },
+      unElVisible(){
+                if (this.getUserRole.isAuthenticated === true && this.getUserRole.role === "writer") {
+                    this.elVisEditPost = true
+                    this.elVisDelPost = true
+                    this.elVisLike = false
+                    return true
+                } else if (this.getUserRole.isAuthenticated === true && this.getUserRole.role === "reader"){
+                    this.elVisEditPost = false
+                    this.elVisDelPost = false
+                    this.elVisLike = true
+                    return true
+                } else {
+                    this.elVisEditPost = false
+                    this.elVisDelPost = false
+                    this.elVisLike = false
+                    return true
+                }
       },
       deleteFromPost(index){
           this.DELETE_POST(index);
@@ -102,7 +121,10 @@ import {bus} from '../bus'
                perPage: 10,
                pageNamber: 1,
                isElVisible: false,
-               id: 0
+               id: 0,
+               elVisEditPost: false,
+               elVisDelPost: false,
+               elVisLike: false
             }
     },
     // mounted() {
