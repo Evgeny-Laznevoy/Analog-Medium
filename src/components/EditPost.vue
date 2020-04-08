@@ -10,7 +10,7 @@
                 <textarea v-model="textPost" class="textarea" required></textarea>
             </div>
             <div class="buttons is-right">
-                <button class="button is-link" @click.prevent="changePost" :disabled="getProcessing">Изменить</button>
+                <button class="button is-link" @click.prevent="changePost()" :disabled="getProcessing">Изменить</button>
                 <router-link to="/" class="button">Отмена</router-link>
             </div> 
         </div>   
@@ -19,7 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { bus } from '../bus'
+import { bus }  from '../bus'
 
     export default {
         name: 'EditPost',
@@ -34,29 +34,36 @@ import { bus } from '../bus'
         props: {
 
         },
-        created(){
-              bus.$on('editPost', data=> {
-                   this.idPost = data;
-                   this.editIndex(this.idPost);
-                   console.log(this.idPost);
-                   console.log(this.idPost);
-                   console.log('lissen');    
-                   let mypost = this.$store.getters.POSTS[this.idPost]; 
-                   this.labelPost = mypost.title;
-                   console.log(this.labelPost); 
+        updated(){
+            //  bus.$emit('editPost', this.idPost);
+            //     //    this.idPost = data;
+            //     //    this.editIndex(data);
+            //     console.log(this.idPost);
+                //    console.log(this.idPost);
+                //    console.log('lissen');    
+                //    let mypost = this.$store.getters.POSTS[this.idPost]; 
+                //    this.labelPost = mypost.title;
+                //    console.log(this.labelPost); 
+                   
                 //    return this.id = this.id
                 // console.log("я тута" `${{index}}`);
                 // console.log(this.index);
-                }); 
+                // }); 
+
+
+
                 // bus.$off('editPost');
-            },
+        },
+        beforeDestroy(){
+            this.bus.$off('editPost');
+        },
             // bus.$on('editPost', ()=> {
             //     console.log('я тутf');
-            // });     
-            // bus.$off('editPost');
+            // });    
             // console.log(this.i);
         methods:{
             changePost(){
+                bus.$emit('editPost', this.idPost);
                 console.log('изменяем пост');
                     console.log(this.idPost);
                     // bus.$on('editPost', post=> {
@@ -73,7 +80,7 @@ import { bus } from '../bus'
             editIndex(index){
                 console.log('куку');
                 console.log(index);
-                 return this.id = index;
+                this.idPost = index;
             }
             // getEditPost(){
             //     // console.log(index); 

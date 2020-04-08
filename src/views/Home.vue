@@ -24,7 +24,11 @@
             <div class="buttons is-right" v-if="isUserAuthenticated">
                 <b-button @click="editPost(i)" v-show="elVisEditPost">Изменить</b-button>
                 <b-button @click="deleteFromPost(i)" v-show="elVisDelPost">Удалить</b-button> 
-                <b-button v-show="elVisLike"><i class="material-icons">thumb_up</i></b-button>
+                <b-button v-show="elVisLike" @click="incCounter(i)">
+                    <i class="material-icons">thumb_up</i>
+                    <div>{{post.claps}}</div>
+                </b-button>
+                
             </div>
           </div>
           </div> 
@@ -55,7 +59,6 @@ import {bus} from '../bus'
       paginatedPages(){
           let from = (this.pageNamber - 1) * this.perPage;
           let to = from + this.perPage;
-          // console.log(this.POSTS.slice(from, to)); 
           return this.POSTS.slice(from, to)
       }
     },
@@ -63,8 +66,13 @@ import {bus} from '../bus'
       editPost(index){ 
         this.id = index;
         console.log(this.id);    
-          bus.$emit('editPost', this.id);
+          // bus.$emit('editPost', index);
+          bus.$on('editPost', index);
+          bus.$off('editPost');
           this.$router.push("/editPost");
+      },
+      incCounter(payload){   
+            this.$store.dispatch('INC_COUNTER', {payload});
       },
       unElVisible(){
                 if (this.getUserRole.isAuthenticated === true && this.getUserRole.role === "writer") {
@@ -124,7 +132,8 @@ import {bus} from '../bus'
                id: 0,
                elVisEditPost: false,
                elVisDelPost: false,
-               elVisLike: false
+               elVisLike: false,
+               counter: 0
             }
     },
     // mounted() {

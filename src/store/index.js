@@ -43,6 +43,9 @@ const store = new Vuex.Store({
       state.posts[payload.index].title = payload.title;
       state.posts[payload.index].description = payload.description;
       state.posts[payload.index].createdAt = payload.createdAt;
+    },
+    UP_COUNTER_POST(state, payload){
+      state.posts[payload].claps += 1;
     }
   },
   actions: {
@@ -72,6 +75,10 @@ const store = new Vuex.Store({
     EDIT_POST({commit}, post){
       console.log(post);  
       commit('CHANGE_POST',post)
+    },
+    INC_COUNTER({commit}, index){
+      console.log(index);  
+      commit('UP_COUNTER_POST', index.payload)
     },
     // ADD_TO_POST({commit}, post){
     //   return axios.post('http://localhost:3000/posts', post)
