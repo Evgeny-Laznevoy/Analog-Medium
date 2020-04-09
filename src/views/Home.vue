@@ -38,15 +38,28 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
-// import EditPostForm from '../components/EditPost';
 import {bus} from '../bus'
 
   export default {
     name: 'Home',
     components: {
-        
+
     },
-    props:{},
+    data(){
+      return {
+               perPage: 10,
+               pageNamber: 1,
+               isElVisible: false,
+               idPost: 0,
+               elVisEditPost: false,
+               elVisDelPost: false,
+               elVisLike: false,
+               counter: 0
+            }
+    },
+    props:{
+  
+    },
     computed:{
       ...mapGetters([
         'POSTS',
@@ -63,11 +76,9 @@ import {bus} from '../bus'
       }
     },
     methods:{
-      editPost(index){ 
-        this.id = index;
-        console.log(this.id);    
-          // bus.$emit('editPost', index);
-          bus.$on('editPost', index);
+      editPost(index){
+          bus.notify('editPost', index);
+          console.log(index);
           bus.$off('editPost');
           this.$router.push("/editPost");
       },
@@ -123,22 +134,7 @@ import {bus} from '../bus'
     ...mapActions([
           'DELETE_POST'
         ]),
-    },
-    data(){
-      return {
-               perPage: 10,
-               pageNamber: 1,
-               isElVisible: false,
-               id: 0,
-               elVisEditPost: false,
-               elVisDelPost: false,
-               elVisLike: false,
-               counter: 0
-            }
-    },
-    // mounted() {
-    //     this.GET_POSTS_FROM_API();
-    // }
+    } 
   }
 </script>
 

@@ -39,7 +39,6 @@ const store = new Vuex.Store({
       state.posts.splice(index,1);
     },
     CHANGE_POST(state, payload){
-      console.log(payload);
       state.posts[payload.index].title = payload.title;
       state.posts[payload.index].description = payload.description;
       state.posts[payload.index].createdAt = payload.createdAt;
@@ -64,30 +63,18 @@ const store = new Vuex.Store({
         return error;
       })
     },
-    // GET_POSTS_FROM_STATE
-
     DELETE_POST({commit}, index){
       commit('REMOVE_POST', index)
     },
     ADD_TO_POST({commit}, post){
       commit('SET_POST', post)
     }, 
-    EDIT_POST({commit}, post){
-      console.log(post);  
+    EDIT_POST({commit}, post){ 
       commit('CHANGE_POST',post)
     },
-    INC_COUNTER({commit}, index){
-      console.log(index);  
+    INC_COUNTER({commit}, index){ 
       commit('UP_COUNTER_POST', index.payload)
     },
-    // ADD_TO_POST({commit}, post){
-    //   return axios.post('http://localhost:3000/posts', post)
-    //   .then((res) =>{
-    //       if (res.status == 200){
-    //         commit('SET_POST', post)
-    //       }
-    //     })
-    // },
     SIGNIN({commit}, payload){
       commit('SET_PROCESSING', true)
       return axios.get('http://localhost:3000/users', {
@@ -96,12 +83,7 @@ const store = new Vuex.Store({
         for (let index = 0; index < res.data.length; index++) {
           if (payload.email == res.data[index].login && payload.password == res.data[index].password) {
             commit('SET_USER', res.data[index])
-            // console.log(res.data) 
           }
-          // console.log(res.data[index])
-          // console.log(payload.email);  
-          // const element = res.data[index];
-          
         } 
         commit('SET_PROCESSING', false)
     })
@@ -117,7 +99,6 @@ const store = new Vuex.Store({
       return state.processing;
     },
     isUserAuthenticated(state){
-      //.isAuthenticated
       return state.user.isAuthenticated;
     },
     lastPostId(state){

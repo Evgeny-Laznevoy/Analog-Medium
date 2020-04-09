@@ -9,9 +9,6 @@
          <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <!-- <b-button v-for="(item,i) in menuItems" flat :key="`menuItems${i}`" tag="router-link" :to="{ path: item.route }" >
-                        {{item.title}}
-                    </b-button>  -->
                     <b-button tag="router-link" :to="{ path: '/newpost' }" v-show="newPostVisible">Новый пост</b-button>
                     <b-button tag="router-link" :to="{ path: '/signin' }" v-show="elVisible">Войти</b-button>
                     <b-button @click.prevent ="signout" :disabled="getProcessing" v-show="exitVisible">Выйти</b-button>

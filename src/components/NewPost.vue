@@ -48,9 +48,7 @@ import { mapActions, mapGetters } from 'vuex';
             addPost(){
              let post = this.$store.getters.lastPostId;  
              const lastId = ++post;
-            
-            // let localTime = new Date() .format('YYYY-MM-DD'); // store localTime 
-            // let proposedDate = localTime + "T00:00:00.000Z";
+             
             let newDate = this.getNewDate;
 
                 let newPost = {
@@ -61,10 +59,8 @@ import { mapActions, mapGetters } from 'vuex';
                     createdAt: newDate,
                     updateAt: "2019-09-29T00:00:00.000Z",
                     userId: 1
-                }
-                // let user = this.$store.getters.getUserRole;  
+                }  
                     this.ADD_TO_POST(newPost)
-                    // this.GET_POSTS_FROM_API();
                     this.$router.push("/")       
             },
             ...mapActions([
